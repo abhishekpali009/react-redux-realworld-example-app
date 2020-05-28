@@ -5,6 +5,8 @@ import {
   APPLY_TAG_FILTER,
   HOME_PAGE_LOADED,
   HOME_PAGE_UNLOADED,
+  PAGE_LOADED,
+  PAGE_UNLOADED,
   CHANGE_TAB,
   PROFILE_PAGE_LOADED,
   PROFILE_PAGE_UNLOADED,
@@ -44,7 +46,7 @@ export default (state = {}, action) => {
         articlesCount: action.payload.articlesCount,
         tab: null,
         tag: action.tag,
-        currentPage: 0
+        currentPage: action.page
       };
     case HOME_PAGE_LOADED:
       return {
@@ -58,6 +60,18 @@ export default (state = {}, action) => {
       };
     case HOME_PAGE_UNLOADED:
       return {};
+    case PAGE_LOADED:
+      return {
+        ...state,
+        pager: action.pager,
+        tags: action.payload[0].tags,
+        articles: action.payload[1].articles,
+        articlesCount: action.payload[1].articlesCount,
+        currentPage: action.page,
+        tab: action.tab
+      };
+    case PAGE_UNLOADED:
+      return {};
     case CHANGE_TAB:
       return {
         ...state,
@@ -65,7 +79,7 @@ export default (state = {}, action) => {
         articles: action.payload.articles,
         articlesCount: action.payload.articlesCount,
         tab: action.tab,
-        currentPage: 0,
+        currentPage: action.page,
         tag: null
       };
     case PROFILE_PAGE_LOADED:

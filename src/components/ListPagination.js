@@ -2,6 +2,8 @@ import React from 'react';
 import agent from '../agent';
 import { connect } from 'react-redux';
 import { SET_PAGE } from '../constants/actionTypes';
+import { Link } from 'react-router-dom';
+import { store } from '../store';
 
 const mapDispatchToProps = dispatch => ({
   onSetPage: (page, payload) =>
@@ -33,20 +35,79 @@ const ListPagination = props => {
         {
           range.map(v => {
             const isCurrent = v === props.currentPage;
+            let tabName = store.getState().articleList.tab;
+            let thisPage = store.getState().articleList.currentPage;
             const onClick = ev => {
               ev.preventDefault();
-              setPage(v);
+              if(v !== 0 && tabName !== null)
+                {
+                  setPage(v);
+                }
+              if(tabName === null)
+                {
+                  setPage(v)
+                }
             };
-            return (
-              <li
-                className={ isCurrent ? 'page-item active' : 'page-item' }
-                onClick={onClick}
-                key={v.toString()}>
-
-                <a className="page-link" href="">{v + 1}</a>
-
-              </li>
-            );
+            if (v === 0 && tabName !== null)
+              {
+                return (
+                  <li
+                    className={window.location.pathname === '/' ? 'page-item active' : 'page-item'}
+                    onClick={onClick}
+                    key={v.toString()}>
+                    
+                    <Link to='/'><a className="page-link" href="">{v + 1}</a></Link>
+                  </li>
+                )
+              }
+            if (v !==0 && tabName !== null)
+              {
+                return (
+                  <li
+                    className={ isCurrent ? 'page-item active' : 'page-item' }
+                    onClick={onClick}
+                    key={v.toString()}>
+    
+                    <Link to={`/${v + 1}`}><a className="page-link" href="">{v + 1}</a></Link>
+                  </li>
+                );
+              }
+            if ((thisPage === 0 && v === 0) && tabName === null)
+              {
+                return (
+                  <li
+                    className={ isCurrent ? 'page-item active' : 'page-item' }
+                    onClick={onClick}
+                    key={v.toString()}>
+    
+                    <Link to="/1"><a className="page-link" href="">1</a></Link>
+                  </li>
+                );
+              }
+            if ((thisPage === 0 && v !== 0) && tabName === null)
+              {
+                return (
+                  <li
+                    className={ isCurrent ? 'page-item active' : 'page-item' }
+                    onClick={onClick}
+                    key={v.toString()}>
+    
+                    <Link to={`/${v + 1}`}><a className="page-link" href="">{v + 1}</a></Link>
+                  </li>
+                );
+              }
+            if ((thisPage !== 0 && (v !== 0 || v === 0)) && tabName === null)
+              {
+                return (
+                  <li
+                    className={ isCurrent ? 'page-item active' : 'page-item' }
+                    onClick={onClick}
+                    key={v.toString()}>
+    
+                    <Link to={`/${v + 1}`}><a className="page-link" href="">{v + 1}</a></Link>
+                  </li>
+                );
+              }
           })
         }
 
