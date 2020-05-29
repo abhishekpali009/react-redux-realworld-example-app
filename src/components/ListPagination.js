@@ -64,7 +64,7 @@ const ListPagination = props => {
               {
                 return (
                   <li
-                    className={ isCurrent ? 'page-item active' : 'page-item' }
+                    className={ isCurrent || window.location.pathname === `/${v + 1}` ? 'page-item active' : 'page-item' }
                     onClick={onClick}
                     key={v.toString()}>
     
@@ -76,7 +76,7 @@ const ListPagination = props => {
               {
                 return (
                   <li
-                    className={ isCurrent ? 'page-item active' : 'page-item' }
+                    className={ isCurrent || window.location.pathname === '/1' ? 'page-item active' : 'page-item' }
                     onClick={onClick}
                     key={v.toString()}>
     
@@ -88,7 +88,7 @@ const ListPagination = props => {
               {
                 return (
                   <li
-                    className={ isCurrent ? 'page-item active' : 'page-item' }
+                    className={ isCurrent || window.location.pathname === `/${v + 1}` ? 'page-item active' : 'page-item' }
                     onClick={onClick}
                     key={v.toString()}>
     
@@ -100,7 +100,7 @@ const ListPagination = props => {
               {
                 return (
                   <li
-                    className={ isCurrent ? 'page-item active' : 'page-item' }
+                    className={ isCurrent || window.location.pathname === `/${v + 1}` ? 'page-item active' : 'page-item' }
                     onClick={onClick}
                     key={v.toString()}>
     
